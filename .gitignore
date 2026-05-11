@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Per-clone harness state + sister-repo symlinks + session logs
+.claude/settings.local.json
+.path-privacy.local.json
+coderef/
+internal/
