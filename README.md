@@ -55,13 +55,35 @@ Default is "stays in the source repo." See
 `coderef/ComfyUI-AudioLoopHelper/internal/design/extraction_candidates.md`
 for the current inventory of what's extractable and the coupling cost.
 
+## Roadmap — likely first extractions
+
+Order is by probable-second-consumer demand, not by technical readiness.
+Each item is gated on the extraction policy above; listing here is not a
+commitment.
+
+1. **Apply-script templates + F-pair convention as documentation.** Any
+   new ComfyUI workload that wants this repo's discipline needs these
+   from line one. Highest leverage, lowest mechanical cost (copy + cite).
+2. **`WorkflowEditor` API split from run-routing.** First workload that
+   needs to mutate workflow JSON without inheriting the sister repo's
+   per-workload env-var semantics forces the split.
+3. **Audit framework + three generic invariants** (`graph_acyclic`,
+   `widget_shape`, `link_integrity`). Once two workloads each have their
+   own F-pair audits, the framework earns extraction.
+4. **Run-artifact routing.** Last — the env-var-name rename is the
+   forcing function, and that only matters when two repos compete for
+   the same env var.
+
+Full classification + coupling notes:
+`coderef/ComfyUI-AudioLoopHelper/internal/design/extraction_candidates.md`.
+
 ## Related repos
 
 | Repo | Bucket | Notes |
 |---|---|---|
-| `ComfyUI-AudioLoopHelper` | Custom-node repo (LTX 2.3 audio-looped music video). Canonical source for shared patterns until extraction triggers fire. | Sibling custom-node directory. |
-| `sage-fork` | Sister fork patching an upstream attention library's CUDA kernel. Self-contained; doesn't depend on this repo. | Not a ComfyUI custom-node package — lives outside `custom_nodes/`; referenced via `coderef/sage-fork/` in `ComfyUI-AudioLoopHelper`. |
-| `shrug-prompter` | Sibling custom-node repo for LLM/prompt nodes. Independent; composes with other custom-node repos at the ComfyUI graph level. | Sibling custom-node directory. |
+| [`fblissjr/ComfyUI-AudioLoopHelper`](https://github.com/fblissjr/ComfyUI-AudioLoopHelper) | Custom-node repo (LTX 2.3 audio-looped music video). Canonical source for shared patterns until extraction triggers fire. | Sibling custom-node directory. |
+| [`fblissjr/SageAttention-ada`](https://github.com/fblissjr/SageAttention-ada) | Sister fork patching an upstream attention library's CUDA kernel. Self-contained; doesn't depend on this repo. | Not a ComfyUI custom-node package — lives outside `custom_nodes/`; referenced via `coderef/sage-fork/` in the sister repo. |
+| [`fblissjr/shrug-prompter`](https://github.com/fblissjr/shrug-prompter) | Sibling custom-node repo for LLM/prompt nodes. Independent; composes with other custom-node repos at the ComfyUI graph level. | Sibling custom-node directory. |
 
 ## Bootstrap
 
@@ -72,3 +94,7 @@ ComfyUI skips the directory at startup without warning.
 
 Bootstrap procedure (skeleton, sister symlinks, memo channel wiring):
 `coderef/ComfyUI-AudioLoopHelper/internal/design/sister_repo_taxonomy.md`.
+
+## License
+
+See `LICENSE`.
